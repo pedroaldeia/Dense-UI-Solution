@@ -31,10 +31,12 @@ let attempt               = 0;      // users complete each test twice to account
 let targets               = [];
 const GRID_ROWS           = 8;      // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
-
+// 
+let sound;
 // Ensures important data is loaded before the program starts
 function preload()
 {
+  // sound = loadSound('./ding.mp3');
   // id,name,...
   legendas = loadTable('legendas/G_'+GROUP_NUMBER+'.csv', 'csv', 'header');
 }
