@@ -200,6 +200,19 @@ function continueTest()
 // Creates and positions the UI targets
 function createTargets(target_size, horizontal_gap, vertical_gap)
 {
+  let legendas_array = [];
+
+  // puts the buttons info in an array
+  for(var i = 0; i < legendas.getRowCount(); i++){ 
+    legendas_array.push({
+      id: legendas.getNum(i,0),
+      label: legendas.getString(i,1),
+    })
+  }
+
+  //sorts the buttons info in alfabetical order (using the button label)
+  legendas_array.sort((a,b) => a.label.localeCompare(b.label));
+
   // Define the margins between targets by dividing the white space 
   // for the number of targets minus one
   h_margin = horizontal_gap / (GRID_COLUMNS -1);
@@ -210,15 +223,13 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
   {
     for (var c = 0; c < GRID_COLUMNS; c++)
     {
+      let index = c + GRID_COLUMNS * r;       // gets the right index to search the button
+
       let target_x = 40 + (h_margin + target_size) * c + target_size/2;        // give it some margin from the left border
-      let target_y = (v_margin + target_size) * r + target_size/2;
-      
-      // Find the appropriate label and ID for this target
-      let legendas_index = c + GRID_COLUMNS * r;
-      let target_id = legendas.getNum(legendas_index, 0);  
-      let target_label = legendas.getString(legendas_index, 1);   
-      
-      let target = new Target(target_x, target_y + 40, target_size, target_label, target_id);
+      let target_y = (v_margin + target_size) * r + target_size/2;  
+
+      // creates the button with the right alphabetical order info
+      let target = new Target(target_x, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
       targets.push(target);
     }  
   }
