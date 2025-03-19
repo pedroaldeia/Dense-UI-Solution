@@ -36,7 +36,7 @@ let sound;
 // Ensures important data is loaded before the program starts
 function preload()
 {
-  // sound = loadSound('./ding.mp3');
+  sound = loadSound('./ding.mp3');
   // id,name,...
   legendas = loadTable('legendas/G_'+GROUP_NUMBER+'.csv', 'csv', 'header');
 }

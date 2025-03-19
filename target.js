@@ -6,34 +6,30 @@ class Target
     '#1e90ff', // sky blue
     '#32cd32' ,   // lawngreen
     '#c71585', //ligthpink
+    '#FC6A03', // orange
+    '#C49102', // dijon
+    '#00755E' ,   // tropical rainforest
     '#dc143c', // a random red 
     '#1e90ff', // sky blue
     '#32cd32' ,   // lawngreen
     '#c71585', //ligthpink
+    '#FC6A03', // orange
+    '#C49102', // dijon
+    '#00755E' ,   // tropical rainforest
     '#dc143c', // a random red 
     '#1e90ff', // sky blue
     '#32cd32' ,   // lawngreen
     '#c71585', //ligthpink
+    '#FC6A03', // orange
+    '#C49102', // dijon
+    '#00755E' ,   // tropical rainforest
     '#dc143c', // a random red 
     '#1e90ff', // sky blue
     '#32cd32' ,   // lawngreen
     '#c71585', //ligthpink
-    '#dc143c', // a random red 
-    '#1e90ff', // sky blue
-    '#32cd32' ,   // lawngreen
-    '#c71585', //ligthpink
-    '#dc143c', // a random red 
-    '#1e90ff', // sky blue
-    '#32cd32' ,   // lawngreen
-    '#c71585', //ligthpink
-    '#dc143c', // a random red 
-    '#1e90ff', // sky blue
-    '#32cd32' ,   // lawngreen
-    '#c71585', //ligthpink
-    '#dc143c', // a random red 
-    '#1e90ff', // sky blue
-    '#32cd32' ,   // lawngreen
-    '#c71585' //ligthpink
+    '#FC6A03', // orange
+    '#C49102', // dijon
+    '#00755E'    // tropical rainforest
   ];
 
   constructor(x, y, w, l, id)
@@ -48,8 +44,14 @@ class Target
   // within the target
   clicked(mouse_x, mouse_y)
   {
-    // sound.play();
-    return dist(this.x, this.y, mouse_x, mouse_y) < this.width / 2;
+    //(this.x-((this.width / 2)*1.25)>mouse_x>this.x+((this.width / 2)*1.25))&&(this.y-((this.width / 2)*0.9)>mouse_y>this.y+((this.width / 2)*0.9)) not working :(
+    if(dist(this.x, this.y, mouse_x, mouse_y) < this.width / 2){
+      sound.play();
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   getIndex(character) {
