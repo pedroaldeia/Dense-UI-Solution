@@ -45,7 +45,10 @@ class Target
   clicked(mouse_x, mouse_y)
   {
     //(this.x-((this.width / 2)*1.25)>mouse_x>this.x+((this.width / 2)*1.25))&&(this.y-((this.width / 2)*0.9)>mouse_y>this.y+((this.width / 2)*0.9)) not working :(
-    if(dist(this.x, this.y, mouse_x, mouse_y) < this.width / 2){
+    if(
+      Math.abs(this.x - mouse_x) < this.width * 1.25 / 2 &&
+      Math.abs(this.y - mouse_y) < this.width * 0.9 / 2
+    ){
       sound.play();
       return true;
     }
