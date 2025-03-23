@@ -257,7 +257,7 @@ function windowResized()
 
     // Creates and positions the UI targets according to the white space defined above (in cm!)
     // 80 represent some margins around the display (e.g., for text)
-    createTargets(target_size * PPCM, horizontal_gap * PPCM - 80, vertical_gap * PPCM - 80);
+    createTargets(target_size * PPCM, 250, -50);
 
     // Starts drawing targets immediately after we go fullscreen
     draw_targets = true;
