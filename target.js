@@ -168,14 +168,14 @@ class Target
     rect(this.x - ((this.width / 2)*1.25), this.y-((this.width / 2)*0.9), this.width*1.25, this.width*0.9,this.width*0.1);
 
   // Draw first letter
-  textFont("Arial", 20);
-  fill(color(255, 255, 255));
+  textFont("Arial", 24);
+  fill(color(0, 0, 0));
   textAlign(CENTER);
   text(this.label.charAt(0), this.x, this.y - 0.1 * this.width); // First character slightly above
 
   // Draw the rest of the label
-  textFont("Arial", 14);
-  fill(color(255, 255, 255));
+  textFont("Arial", 18);
+  fill(color(0, 0, 0));
   textAlign(CENTER);
   text(this.label, this.x, this.y + 0.1 * this.width); // Rest of the string slightly below
   }
