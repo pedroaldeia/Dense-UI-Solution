@@ -33,6 +33,8 @@ const GRID_ROWS           = 8;      // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
 // 
 let sound;
+
+let lettersPerRow = [];
 // Ensures important data is loaded before the program starts
 function preload()
 {
@@ -67,7 +69,17 @@ function draw()
         
     // Draw all targets
 	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw();
-    
+
+  // Draw the positions stored in lettersPerRow
+  for (let i = 0; i < lettersPerRow.length; i++) {
+    let position = lettersPerRow[i].nextTargetPosition;
+    let label = lettersPerRow[i].label;
+    textFont("Arial", 20);
+    fill(color(255, 255, 255));
+    rect(position.x - 25, position.y + 40 - 25, 50, 50); // Draw a square at the position
+    fill(color(0, 0, 0)); // Set text color to black
+    text(label, position.x, position.y + 40);
+  }
     // Draws the target label to be selected in the current trial. We include 
     // a black rectangle behind the trial label for optimal contrast in case 
     // you change the background colour of the sketch (DO NOT CHANGE THESE!)
@@ -203,35 +215,47 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
   let legendas_array = [];
 
   // puts the buttons info in an array
-  for(var i = 0; i < legendas.getRowCount(); i++){ 
+  for (var i = 0; i < legendas.getRowCount(); i++) { 
     legendas_array.push({
-      id: legendas.getNum(i,0),
-      label: legendas.getString(i,1),
-    })
+      id: legendas.getNum(i, 0),
+      label: legendas.getString(i, 1),
+    });
   }
 
-  //sorts the buttons info in alfabetical order (using the button label)
-  legendas_array.sort((a,b) => a.label.localeCompare(b.label));
+  // sorts the buttons info in alphabetical order (using the button label)
+  legendas_array.sort((a, b) => a.label.localeCompare(b.label));
 
   // Define the margins between targets by dividing the white space 
   // for the number of targets minus one
-  h_margin = horizontal_gap / (GRID_COLUMNS -1);
+  h_margin = horizontal_gap / (GRID_COLUMNS - 1);
   v_margin = vertical_gap / (GRID_ROWS - 1);
   
   // Set targets in a 8 x 10 grid
-  for (var r = 0; r < GRID_ROWS; r++)
-  {
-    for (var c = 0; c < GRID_COLUMNS; c++)
-    {
-      let index = c + GRID_COLUMNS * r;       // gets the right index to search the button
+  for (var r = 0; r < GRID_ROWS; r++) {
+    let rowLabels = new Set(); // Collect labels for the current row
 
-      let target_x = 40 + (h_margin + target_size) * c + target_size/2;        // give it some margin from the left border
-      let target_y = (v_margin + target_size) * r + target_size/2;  
+    for (var c = 0; c < GRID_COLUMNS; c++) {
+      let index = c + GRID_COLUMNS * r; // gets the right index to search the button
+
+      let target_x = 40 + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
+      let target_y = (v_margin + target_size) * r + target_size / 2;  
 
       // creates the button with the right alphabetical order info
       let target = new Target(target_x, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
       targets.push(target);
-    }  
+
+      // Add the label to the current row
+      rowLabels.add(legendas_array[index].label.charAt(0));
+    }
+
+    // Add the position of a hypothetical next target in the same row
+    let nextTargetX = 40 + (h_margin + target_size) * GRID_COLUMNS + target_size / 2;
+    let nextTargetY = (v_margin + target_size) * r + target_size / 2;
+    lettersPerRow.push({ 
+      row: r, 
+      nextTargetPosition: { x: nextTargetX, y: nextTargetY }, 
+      label: Array.from(rowLabels).join('') 
+    });
   }
 }
 
