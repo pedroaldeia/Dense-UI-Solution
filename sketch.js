@@ -68,7 +68,7 @@ function draw()
     text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
         
     // Draw all targets
-	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw();
+	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw(mouseX, mouseY);
 
   // Draw the positions stored in lettersPerRow
   for (let i = 0; i < lettersPerRow.length; i++) {
