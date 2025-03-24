@@ -163,7 +163,7 @@ class Target
       Math.abs(this.x - mouse_x) < this.width * 1.25 / 2 &&
       Math.abs(this.y - mouse_y) < this.width * 0.9 / 2
     )
-    fill(color(Target.colours[(this.getIndex(this.label.charAt(0)) - 1)* 2 + 1])); 
+    fill(color(Target.colours[(this.getIndex(this.label.charAt(0)))* 2 + 1])); 
     else fill(color(Target.colours[this.getIndex(this.label.charAt(0)) * 2]));                 
     rect(this.x - ((this.width / 2)*1.25), this.y-((this.width / 2)*0.9), this.width*1.25, this.width*0.9,this.width*0.1);
 
