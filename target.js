@@ -145,7 +145,6 @@ class Target
     if (chare >= 'A' && chare <= 'Z') {
       // Return the 0-based index of the character in the alphabet
       let result = chare.charCodeAt(0) - 'A'.charCodeAt(0);
-      console.log(result);
       return result;
     } else {
       // If the character is not a letter, return -1 or another value of your choice

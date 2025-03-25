@@ -76,9 +76,9 @@ function draw()
     let label = lettersPerRow[i].label;
     textFont("Arial", 20);
     fill(color(255, 255, 255));
-    rect(position.x - 25, position.y + 40 - 25, 50, 50); // Draw a square at the position
+    rect(20, position.y + 40 - 25, 90, 50); // Draw a square at the position
     fill(color(0, 0, 0)); // Set text color to black
-    text(label, position.x, position.y + 40);
+    text(label, 70, position.y + 40);
   }
     // Draws the target label to be selected in the current trial. We include 
     // a black rectangle behind the trial label for optimal contrast in case 
@@ -241,7 +241,7 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
       let target_y = (v_margin + target_size) * r + target_size / 2;  
 
       // creates the button with the right alphabetical order info
-      let target = new Target(target_x, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
+      let target = new Target(target_x + 100, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
       targets.push(target);
 
       // Add the label to the current row
@@ -251,11 +251,13 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
     // Add the position of a hypothetical next target in the same row
     let nextTargetX = 40 + (h_margin + target_size) * GRID_COLUMNS + target_size / 2;
     let nextTargetY = (v_margin + target_size) * r + target_size / 2;
+
     lettersPerRow.push({ 
       row: r, 
       nextTargetPosition: { x: nextTargetX, y: nextTargetY }, 
       label: Array.from(rowLabels).join('') 
     });
+
   }
 }
 
@@ -270,12 +272,12 @@ function windowResized()
     let display        = new Display({ diagonal: display_size }, window.screen);
     PPI                = display.ppi;                      // calculates pixels per inch
     PPCM               = PPI / 2.54;                       // calculates pixels per cm
-  
     // Make your decisions in 'cm', so that targets have the same size for all participants
     // Below we find out out white space we can have between 2 cm targets
     let screen_width   = display.width * 2.54;             // screen width
     let screen_height  = display.height * 2.54;            // screen height
-    let target_size    = 2;                                // sets the target size (will be converted to cm when passed to createTargets)
+    let screen_size    = Math.sqrt(display.height * display.height + display.width * display.width);
+    let target_size    = screen_size >= 16 ? 2.0 : 2.0 - (16 - screen_size) * 0.1;     // sets the target size (will be converted to cm when passed to createTargets)
     let horizontal_gap = screen_width - target_size * GRID_COLUMNS;// empty space in cm across the x-axis (based on 10 targets per row)
     let vertical_gap   = screen_height - target_size * GRID_ROWS;  // empty space in cm across the y-axis (based on 8 targets per column)
 
