@@ -210,7 +210,7 @@ function continueTest()
 }
 
 // Creates and positions the UI targets
-function createTargets(target_size, horizontal_gap, vertical_gap,screen_height)
+function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,screen_width)
 {
   let legendas_array = [];
 
@@ -229,8 +229,9 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height)
   // for the number of targets minus one
   h_margin = horizontal_gap / (GRID_COLUMNS - 1);
   v_margin = vertical_gap / (GRID_ROWS - 1);
-  //40 here corresponds to the thickness of the bottom bar
+  //60 here corresponds to the thickness of the bottom bar
   let desired_base= screen_height-60- target_size*8-vertical_gap
+  let desired_left= screen_width/2-target_size*5-horizontal_gap/2
   // Set targets in a 8 x 10 grid
   for (var r = 0; r < GRID_ROWS; r++) {
     let rowLabels = new Set(); // Collect labels for the current row
@@ -238,7 +239,7 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height)
     for (var c = 0; c < GRID_COLUMNS; c++) {
       let index = c + GRID_COLUMNS * r; // gets the right index to search the button
 
-      let target_x = 40 + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
+      let target_x = desired_left+40 + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
       let target_y = desired_base+((v_margin + target_size) * r + target_size / 2);  
 
       // creates the button with the right alphabetical order info
@@ -282,7 +283,7 @@ function windowResized()
 
     // Creates and positions the UI targets according to the white space defined above (in cm!)
     // 80 represent some margins around the display (e.g., for text)
-    createTargets(target_size * PPCM, 250, -50,screen_height*PPCM);
+    createTargets(target_size * PPCM, 250, -50,screen_height*PPCM,screen_width*PPCM);
 
     // Starts drawing targets immediately after we go fullscreen
     draw_targets = true;
