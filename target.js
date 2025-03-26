@@ -167,16 +167,32 @@ class Target
     else fill(color(Target.colours[this.getIndex(this.label.charAt(0)) * 2]));                 
     rect(this.x - ((this.width / 2)*1.25), this.y-((this.width / 2)*0.9), this.width*1.25, this.width*0.9,this.width*0.1);
 
-  // Draw first letter
-  textFont("Arial", 24);
-  fill(color(0, 0, 0));
-  textAlign(CENTER);
-  text(this.label.charAt(0), this.x, this.y - 0.1 * this.width); // First character slightly above
+    // Draw first letter
+    textFont("Arial", 24);
+    fill(color(0, 0, 0));
+    textAlign(CENTER);
+    text(this.label.charAt(0), this.x, this.y - 0.1 * this.width); // First character slightly above
 
-  // Draw the rest of the label
-  textFont("Arial", 18);
-  fill(color(0, 0, 0));
-  textAlign(CENTER);
-  text(this.label, this.x, this.y + 0.1 * this.width); // Rest of the string slightly below
+    let words = this.label.split(" ");
+
+    if (words.length > 2) {
+      words[0] = words[0] + " " + words[1];
+      words.splice(1, 1);
+    }
+    if (words.length > 2) {
+        words[1] = words[1] + " " + words[2];
+        words.splice(2, 1);
+    }
+
+    textFont("Arial", 20);
+    fill(color(0, 0, 0));
+    textAlign(CENTER);
+
+    let lineHeight = 22; // Space between words
+    let startY = this.y - ((words.length - 1) * lineHeight) / 2 + 23; // Adjust for centering
+
+    for (let i = 0; i < words.length; i++) {
+        text(words[i], this.x, startY + i * lineHeight);
+    }
   }
 }
