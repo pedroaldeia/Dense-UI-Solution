@@ -31,6 +31,9 @@ let attempt               = 0;      // users complete each test twice to account
 let targets               = [];
 const GRID_ROWS           = 8;      // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
+
+// Should we print the letters on the left side of the screen?
+let printLetters = true;
 // 
 let sound;
 
@@ -69,17 +72,20 @@ function draw()
         
     // Draw all targets
 	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw(mouseX, mouseY);
-
-  // Draw the positions stored in lettersPerRow
-  for (let i = 0; i < lettersPerRow.length; i++) {
-    let position = lettersPerRow[i].nextTargetPosition;
-    let label = lettersPerRow[i].label;
-    textFont("Arial", 20);
-    fill(color(255, 255, 255));
-    rect(20, position.y + 40 - 25, 90, 50); // Draw a square at the position
-    fill(color(0, 0, 0)); // Set text color to black
-    text(label, 70, position.y + 40);
+  
+  if (printLetters) {
+    // Draw the positions stored in lettersPerRow
+    for (let i = 0; i < lettersPerRow.length; i++) {
+      let position = lettersPerRow[i].nextTargetPosition;
+      let label = lettersPerRow[i].label;
+      textFont("Arial", 20);
+      fill(color(255, 255, 255));
+      rect(20, position.y + 40 - 25, 90, 50); // Draw a square at the position
+      fill(color(0, 0, 0)); // Set text color to black
+      text(label, 70, position.y + 40);
+    }
   }
+
     // Draws the target label to be selected in the current trial. We include 
     // a black rectangle behind the trial label for optimal contrast in case 
     // you change the background colour of the sketch (DO NOT CHANGE THESE!)
@@ -240,9 +246,14 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
       let target_x = 40 + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
       let target_y = (v_margin + target_size) * r + target_size / 2;  
 
+      if (printLetters) {
+        target_x += 100;
+      }
+
       // creates the button with the right alphabetical order info
-      let target = new Target(target_x + 100, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
+      let target = new Target(target_x, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
       targets.push(target);
+      console.log("Target pushed")
 
       // Add the label to the current row
       rowLabels.add(legendas_array[index].label.charAt(0));
@@ -276,11 +287,13 @@ function windowResized()
     // Below we find out out white space we can have between 2 cm targets
     let screen_width   = display.width * 2.54;             // screen width
     let screen_height  = display.height * 2.54;            // screen height
-    let screen_size    = Math.sqrt(display.height * display.height + display.width * display.width);
-    let target_size    = screen_size >= 16 ? 2.0 : 2.0 - (16 - screen_size) * 0.1;     // sets the target size (will be converted to cm when passed to createTargets)
+    let target_size    = 2.0;                              // sets the target size (will be converted to cm when passed to createTargets)
     let horizontal_gap = screen_width - target_size * GRID_COLUMNS;// empty space in cm across the x-axis (based on 10 targets per row)
     let vertical_gap   = screen_height - target_size * GRID_ROWS;  // empty space in cm across the y-axis (based on 8 targets per column)
 
+    screen_size = Math.sqrt(display.height * display.height + display.width * display.width);
+    console.log("Screen size: " + screen_size);
+    printLetters = screen_size >= 15.5 ? true : false;
     // Creates and positions the UI targets according to the white space defined above (in cm!)
     // 80 represent some margins around the display (e.g., for text)
     createTargets(target_size * PPCM, 250, -50);
