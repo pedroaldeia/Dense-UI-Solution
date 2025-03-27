@@ -34,6 +34,8 @@ const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
 // 
 let sound;
 
+let firstClick = false; // Variable to track if the first click has been made
+
 // Ensures important data is loaded before the program starts
 function preload()
 {
@@ -68,6 +70,16 @@ function draw()
         
     // Draw all targets
 	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw(mouseX, mouseY);
+
+  if (!firstClick) {
+    textFont("Arial", 20);
+    fill(color(255, 255, 255));
+    textAlign(CENTER);
+    text("O tempo só começa a contar depois do primeiro click,", width / 2, 20);
+    text("pode tirar o tempo que precisar para estudar e memorizar", width / 2, 50);
+    text("parte do mapa de maneira a fazer um tempo melhor.", width / 2, 80);
+    text("Boa sorte!", width / 2, 110);
+  }
 
     // Draws the target label to be selected in the current trial. We include 
     // a black rectangle behind the trial label for optimal contrast in case 
@@ -146,6 +158,8 @@ function mousePressed()
   // (i.e., during target selections)
   if (draw_targets)
   {
+    firstClick = true;
+
     for (var i = 0; i < legendas.getRowCount(); i++)
     {
       // Check if the user clicked over one of the targets
