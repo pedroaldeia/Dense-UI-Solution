@@ -34,7 +34,6 @@ const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
 // 
 let sound;
 
-let lettersPerRow = [];
 // Ensures important data is loaded before the program starts
 function preload()
 {
@@ -70,16 +69,6 @@ function draw()
     // Draw all targets
 	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw(mouseX, mouseY);
 
-  // Draw the positions stored in lettersPerRow
-  for (let i = 0; i < lettersPerRow.length; i++) {
-    let position = lettersPerRow[i].nextTargetPosition;
-    let label = lettersPerRow[i].label;
-    textFont("Arial", 20);
-    fill(color(255, 255, 255));
-    rect(position.x - 25, position.y + 40 - 25, 50, 50); // Draw a square at the position
-    fill(color(0, 0, 0)); // Set text color to black
-    text(label, position.x, position.y + 40);
-  }
     // Draws the target label to be selected in the current trial. We include 
     // a black rectangle behind the trial label for optimal contrast in case 
     // you change the background colour of the sketch (DO NOT CHANGE THESE!)
@@ -253,11 +242,6 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,s
     // Add the position of a hypothetical next target in the same row
     let nextTargetX = 40 + (h_margin + target_size) * GRID_COLUMNS + target_size / 2;
     let nextTargetY = (v_margin + target_size) * r + target_size / 2;
-    lettersPerRow.push({ 
-      row: r, 
-      nextTargetPosition: { x: nextTargetX, y: nextTargetY }, 
-      label: Array.from(rowLabels).join('') 
-    });
   }
 }
 
