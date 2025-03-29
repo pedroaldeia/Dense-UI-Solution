@@ -246,7 +246,7 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,s
       let target_y = desired_base+((v_margin + target_size) * r + target_size / 2);  
 
       // creates the button with the right alphabetical order info
-      let target = new Target(target_x, target_y + 40, target_size, legendas_array[index].label, legendas_array[index].id);
+      let target = new Target(target_x, target_y, target_size, legendas_array[index].label, legendas_array[index].id);
       targets.push(target);
 
       // Add the label to the current row
