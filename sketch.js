@@ -242,7 +242,7 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,s
     for (var c = 0; c < GRID_COLUMNS; c++) {
       let index = c + GRID_COLUMNS * r; // gets the right index to search the button
 
-      let target_x = desired_left+40 + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
+      let target_x = desired_left + (h_margin + target_size) * c + target_size / 2; // give it some margin from the left border
       let target_y = desired_base+((v_margin + target_size) * r + target_size / 2);  
 
       // creates the button with the right alphabetical order info
