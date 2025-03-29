@@ -86,7 +86,7 @@ function draw()
     // you change the background colour of the sketch (DO NOT CHANGE THESE!)
     fill(color(0,0,0));
     rect(0, height - 40, width, 40);
- 
+  
     textFont("Arial", 20); 
     fill(color(255,255,255)); 
     textAlign(CENTER); 
@@ -233,8 +233,8 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,s
   h_margin = horizontal_gap / (GRID_COLUMNS - 1);
   v_margin = vertical_gap / (GRID_ROWS - 1);
   //60 here corresponds to the thickness of the bottom bar
-  let desired_base= screen_height-80- target_size*8*0.9
-  let desired_left= screen_width/2-target_size*5*1.25
+  let desired_base= height-80- target_size*8*0.9
+  let desired_left= width/2-target_size*5*1.25
   // Set targets in a 8 x 10 grid
   for (var r = 0; r < GRID_ROWS; r++) {
     let rowLabels = new Set(); // Collect labels for the current row
