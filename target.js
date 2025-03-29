@@ -184,12 +184,12 @@ class Target
         words.splice(2, 1);
     }
 
-    textFont("Arial", 20);
+    textFont("Arial", 14);
     fill(color(0, 0, 0));
     textAlign(CENTER);
 
-    let lineHeight = 22; // Space between words
-    let startY = this.y - ((words.length - 1) * lineHeight) / 2 + 23; // Adjust for centering
+    let lineHeight = 15; // Space between words
+    let startY = this.y - ((words.length - 1) * lineHeight) / 2 + 14; // Adjust for centering
 
     for (let i = 0; i < words.length; i++) {
         text(words[i], this.x, startY + i * lineHeight);

@@ -6,7 +6,7 @@
 // p5.js reference: https://p5js.org/reference/
 
 // Database (CHANGE THESE!)
-const GROUP_NUMBER        = 1;      // Add your group number here as an integer (e.g., 2, 3)
+const GROUP_NUMBER        = 20;      // Add your group number here as an integer (e.g., 2, 3)
 const RECORD_TO_FIREBASE  = false;  // Set to 'true' to record user results to Firebase
 
 // Pixel density and setup variables (DO NOT CHANGE!)
@@ -233,8 +233,8 @@ function createTargets(target_size, horizontal_gap, vertical_gap,screen_height,s
   h_margin = horizontal_gap / (GRID_COLUMNS - 1);
   v_margin = vertical_gap / (GRID_ROWS - 1);
   //60 here corresponds to the thickness of the bottom bar
-  let desired_base= screen_height-60- target_size*8-vertical_gap
-  let desired_left= screen_width/2-target_size*5-horizontal_gap/2
+  let desired_base= screen_height-80- target_size*8*0.9
+  let desired_left= screen_width/2-target_size*5*1.25
   // Set targets in a 8 x 10 grid
   for (var r = 0; r < GRID_ROWS; r++) {
     let rowLabels = new Set(); // Collect labels for the current row
